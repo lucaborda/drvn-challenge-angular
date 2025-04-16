@@ -1,0 +1,41 @@
+/* sidebar.component.scss */
+mat-nav-list {
+  width: 280px;
+  padding: 16px;
+  box-sizing: border-box;
+
+  h3 {
+    margin: 8px 0 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+  }
+
+  mat-list-item {
+    height: 48px;
+    ::ng-deep .mat-list-item-content {
+      padding: 0 !important;
+    }
+
+    mat-checkbox {
+      width: 100%;
+      padding: 0 16px;
+
+      ::ng-deep .mat-checkbox-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  button {
+    margin-top: 16px;
+    width: calc(100% - 32px);
+    margin-left: 16px;
+  }
+
+  mat-spinner {
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,184 @@
+<!-- product-detail.component.html -->
+@if (isLoading()) {
+<mat-spinner class="spinner-center"></mat-spinner>
+} @else if (product()) {
+<div class="product-detail-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ product()?.title }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ product()?.brand }} | {{ product()?.category }}
+        <span class="discount-badge">
+          {{ product()?.discountPercentage }}% OFF
+        </span>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <img mat-card-image [src]="product()?.thumbnail" [alt]="product()?.title" />
+
+    <mat-card-content>
+      @if (editMode()) {
+      <mat-form-field appearance="outline" class="edit-field">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="title" />
+        @if (productForm.get('title')?.hasError('required')) {
+        <mat-error>Name required.</mat-error>
+        }
+      </mat-form-field>
+      } @else {
+      <h2>{{ product()?.title }}</h2>
+      } @if (editMode()) {
+      <mat-form-field appearance="outline" class="edit-field">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+      } @else {
+      <p class="description">{{ product()?.description }}</p>
+      }
+
+      <div class="details-grid">
+        <div class="details-section">
+          <h3>Basic information</h3>
+          <div class="detail-item">
+            <mat-icon>star</mat-icon>
+            <span><strong>Rating:</strong> {{ product()?.rating }}/5</span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>attach_money</mat-icon>
+            @if (editMode()) {
+            <mat-form-field appearance="outline" class="edit-field small">
+              <mat-label>Price: </mat-label>
+              <input matInput type="number" formControlName="price" />
+            </mat-form-field>
+            } @else {
+            <span
+              ><strong>Price: </strong>
+              {{ product()?.price ?? 0 | currencyFormat }}</span
+            >
+            }
+          </div>
+          <div class="detail-item">
+            <mat-icon>inventory</mat-icon>
+            @if (editMode()) {
+            <mat-form-field appearance="outline" class="edit-field small">
+              <mat-label>Stock</mat-label>
+              <input matInput type="number" formControlName="stock" />
+            </mat-form-field>
+            } @else {
+            <span><strong>Stock:</strong> {{ product()?.stock }} units</span>
+            }
+          </div>
+        </div>
+        @if(!editMode()) {
+        <div class="details-section">
+          <h3>Specifications</h3>
+          <div class="detail-item">
+            <mat-icon>category</mat-icon>
+            <span><strong>Category:</strong> {{ product()?.category }}</span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>local_offer</mat-icon>
+            <span
+              ><strong>Tags:</strong>
+              @for (tag of product()?.tags; track $index) {
+              <span class="tag">{{ tag }}</span>
+              }
+            </span>
+          </div>
+          <div class="detail-item">
+            <mat-icon>straighten</mat-icon>
+            <span
+              ><strong>Dimensions:</strong> {{ product()?.dimensions?.width }} x
+              {{ product()?.dimensions?.height }} x
+              {{ product()?.dimensions?.depth }}</span
+            >
+          </div>
+          <div class="detail-item">
+            <mat-icon>fitness_center</mat-icon>
+            <span><strong>Weight:</strong> {{ product()?.weight }}</span>
+          </div>
+        </div>
+        }
+      </div>
+
+      <mat-expansion-panel class="shipping-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>local_shipping</mat-icon>
+            Shipping
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="shipping-content">
+          <div class="shipping-item">
+            <mat-icon>check_circle</mat-icon>
+            <span
+              ><strong>Shipping: </strong
+              >{{ product()?.shippingInformation }}</span
+            >
+          </div>
+          <div class="shipping-item">
+            <mat-icon>verified</mat-icon>
+            <span
+              ><strong>Warranty: </strong
+              >{{ product()?.warrantyInformation }}</span
+            >
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <h3>Images Gallery</h3>
+      <div class="image-gallery">
+        @for (image of product()?.images; track $index) {
+        <img
+          [src]="image"
+          [alt]="'Image ' + ($index + 1) + ' of ' + product()?.title"
+        />
+        }
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" routerLink="/">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+      @if (editMode()) {
+      <div class="edit-actions">
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="toggleEdit()"
+          [disabled]="isSaving()"
+        >
+          <mat-icon>cancel</mat-icon>
+          Cancel
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="saveProduct()"
+          [disabled]="productForm.invalid || isSaving()"
+        >
+          <mat-icon>save</mat-icon>
+          @if (isSaving()) {
+          <mat-spinner diameter="20"></mat-spinner>
+          } Save
+        </button>
+      </div>
+      } @else {
+      <button mat-raised-button color="accent" (click)="toggleEdit()">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+      }
+    </mat-card-actions>
+  </mat-card>
+</div>
+} @else {
+<div class="not-found">
+  <mat-icon>error_outline</mat-icon>
+  <h2>Product not found</h2>
+  <button mat-button routerLink="/">Back to list</button>
+</div>
+}

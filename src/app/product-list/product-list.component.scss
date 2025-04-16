@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
+.table-container {
+  padding-bottom: 10px;
+}
+
 .image-container {
   display: flex;
   justify-content: center;
@@ -37,4 +41,25 @@
       padding: 0 12px;
     }
   }
+}
+
+.main-container {
+  height: 100vh;
+  display: flex;
+}
+
+mat-drawer-container {
+  flex: 1;
+}
+
+mat-drawer {
+  width: 280px;
+  border-right: none;
+  background: #fafafa;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+mat-drawer-content {
+  padding: 24px;
+  background: white;
 }

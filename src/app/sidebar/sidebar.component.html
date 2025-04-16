@@ -1,0 +1,28 @@
+<!-- sidebar.component.html -->
+<mat-nav-list>
+  <h3 matSubheader>Categories</h3>
+  <mat-list-item>
+    <mat-checkbox
+      [checked]="filterService.selectedCategory() === ''"
+      (change)="toggleCategory('')"
+    >
+      {{ "All" | titlecase }}
+    </mat-checkbox>
+  </mat-list-item>
+
+  @if (isLoading()) {
+  <mat-list-item>
+    <mat-spinner diameter="24"></mat-spinner>
+  </mat-list-item>
+  } @else { @for (category of filterService.availableCategories(); track
+  category) {
+  <mat-list-item>
+    <mat-checkbox
+      [checked]="filterService.selectedCategory() === category"
+      (change)="toggleCategory(category)"
+    >
+      {{ category | titlecase }}
+    </mat-checkbox>
+  </mat-list-item>
+  }}
+</mat-nav-list>

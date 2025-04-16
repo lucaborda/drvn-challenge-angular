@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ProductListComponent } from './product-list/product-list.component';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProductListComponent],
+  imports: [RouterOutlet, MatSidenavModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
