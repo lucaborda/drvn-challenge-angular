@@ -4,6 +4,15 @@ export interface Product {
   title: string;
   description: string;
   price: number;
+  weight: number;
+  warrantyInformation: string;
+  shippingInformation: string;
+  dimensions: {
+    height: number;
+    width: number;
+    depth: number;
+  };
+  tags: string[];
   discountPercentage: number;
   rating: number;
   stock: number;
