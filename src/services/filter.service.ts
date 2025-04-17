@@ -2,7 +2,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-type CategoryResponse = {
+export type CategoryResponse = {
   name: string;
   slug: string;
   url: string;
