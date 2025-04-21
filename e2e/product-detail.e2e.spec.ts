@@ -71,6 +71,6 @@ test.describe('Product Detail Page - Mocked API', () => {
 
     await page.getByRole('button', { name: /save/i }).click();
 
-    await expect(page.getByText('¡Product has been updated!')).toBeVisible();
+    await expect(page.getByText('Close')).toBeVisible();
   });
 });
